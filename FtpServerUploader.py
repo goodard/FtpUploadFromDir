@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # Copyright (c) 2011, Xabier (slok) Larrakoetxea
 # Copyright (c) 2011, Iraide (Sharem) Diaz
 #
