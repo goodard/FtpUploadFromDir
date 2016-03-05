@@ -64,7 +64,7 @@ def upload_file(ftp_connetion, upload_file_path):
 
 
 def getFileList(mydir):
-    filelist = [ f for f in os.listdir(mydir) if os.path.isfile(os.path.join(mydir,f))]
+    filelist = [ os.path.join(mydir,f) for f in os.listdir(mydir) if os.path.isfile(os.path.join(mydir,f))]
     print filelist
 
 getFileList("/home/programi")
