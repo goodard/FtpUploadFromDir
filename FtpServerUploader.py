@@ -19,9 +19,9 @@ import os
 
 USER = 'xxxxxx'
 PASS = 'xxxxxxxxx'
-DESTINATION_DIR=""
+DESTINATION_DIR="documents"
 ########### MODIFY IF YOU WANT ############
-
+UPLOADED_DIR='uploaded'
 SERVER = 'ftp.fileserve.com'
 PORT = 21
 BINARY_STORE = True # if False then line store (not valid for binary files (videos, music, photos...))
@@ -100,7 +100,13 @@ def uploadfiles():
         for file in filelist:
             print "Uploading file: " + str(file)
                 #set destination dir
-                upload_file(ftp_conn, file)
+                try:
+                    upload_file(ftp_conn, file)
+                except:
+                    print "Error uploading file: "+str(file)
+                else:
+                    print file
+
 
 #Take all the files and upload all
 #ftp_conn = connect_ftp()
