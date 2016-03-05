@@ -71,7 +71,7 @@ def getFileList(mydir):
 #Take all the files and upload all
 
 #ftp_conn = connect_ftp()
-if len(sys.argv) < 1:
+if len(sys.argv) < 2:
     print "Enter source local directory as parameter"
 else:
     for arg in sys.argv:
