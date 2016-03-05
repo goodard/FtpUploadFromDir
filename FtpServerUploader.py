@@ -27,6 +27,9 @@ PORT = 21
 BINARY_STORE = True # if False then line store (not valid for binary files (videos, music, photos...))
 
 ###########################################
+from ftpparameters import *
+
+
 
 def print_line(result):
     print(result)
