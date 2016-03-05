@@ -68,15 +68,20 @@ def getFileList(mydir):
     filelist = [ os.path.join(mydir,f) for f in os.listdir(mydir) if os.path.isfile(os.path.join(mydir,f))]
     return filelist
 
+def getFilesToUpload():
+    if len(sys.argv) < 2:
+        print "Enter source local directory as parameter"
+    else:
+        filestoupload=[]
+        for arg in sys.argv[1:]:
+            print arg
+            filestoupload.extend(getFileList(arg))
+    return filestoupload
 
+
+
+print getFilesToUpload()
 #Take all the files and upload all
-
 #ftp_conn = connect_ftp()
-if len(sys.argv) < 2:
-    print "Enter source local directory as parameter"
-else:
-    for arg in sys.argv[1:]:
-        print arg
-        print getFileList(arg)
 #for arg in sys.argv:
 #    upload_file(ftp_conn, arg)
