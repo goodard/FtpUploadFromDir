@@ -115,3 +115,5 @@ def uploadfiles():
 #ftp_conn = connect_ftp()
 #for arg in sys.argv:
 #    upload_file(ftp_conn, arg)
+print UPLOADED_DIR
+print SERVER
