@@ -77,6 +77,6 @@ if len(sys.argv) < 2:
 else:
     for arg in sys.argv[1:]:
         print arg
-        getFileList(arg)
+        print getFileList(arg)
 #for arg in sys.argv:
 #    upload_file(ftp_conn, arg)
