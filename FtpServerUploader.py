@@ -81,7 +81,7 @@ def getFilesToUpload():
             filestoupload.extend(getFileList(arg))
     return filestoupload
 
-def cdTree(currentDir):
+def cdTree(currentDir,ftp):
     if currentDir != "":
         try:
             ftp.cwd(currentDir)
@@ -96,7 +96,7 @@ def uploadfiles():
     try:
         ftp_conn = connect_ftp()
         print "Connected"
-        cdTree(DESTINATION_DIR)
+        cdTree(DESTINATION_DIR,ftp_conn)
     except:
         print 'Connection error - unable to open connection to ftp server or nonexisting dir'
         sys.exit(1)
