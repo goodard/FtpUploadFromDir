@@ -100,14 +100,14 @@ def uploadfiles():
         print 'Connection error - unable to open connection to ftp server or nonexisting dir'
         exit(1)
     else:
-        for file in filelist:
-            print "Uploading file: " + str(file)
+        for item in filelist:
+            print "Uploading file: " + str(item)
             try:
-                upload_file(ftp_conn, file)
+                upload_file(ftp_conn, item)
             except:
-                print "Error uploading file: "+str(file)
+                print "Error uploading file: "+str(item)
             else:
-                print "Uploaded file: "+str(file)
+                print "Uploaded file: "+str(item)
 
 
 #Take all the files and upload all
