@@ -19,7 +19,7 @@ import os
 
 USER = 'xxxxxx'
 PASS = 'xxxxxxxxx'
-
+DESTINATION_DIR=""
 ########### MODIFY IF YOU WANT ############
 
 SERVER = 'ftp.fileserve.com'
@@ -78,17 +78,29 @@ def getFilesToUpload():
             filestoupload.extend(getFileList(arg))
     return filestoupload
 
+def cdTree(currentDir):
+    if currentDir != "":
+        try:
+            ftp.cwd(currentDir)
+        except IOError:
+            cdTree("/".join(currentDir.split("/")[:-1]))
+            ftp.mkd(currentDir)
+            ftp.cwd(currentDir)
+
+
 def uploadfiles():
     filelist=getFilesToUpload()
     try:
         ftp_conn = connect_ftp()
+        cdTree(DESTINATION_DIR)
     except:
-        print "Connection error - unable to open connection to ftp server"
+        print 'Connection error - unable to open connection to ftp server or nonexisting dir'
         exit(1)
     else:
         for file in filelist:
             print "Uploading file: " + str(file)
-            upload_file(ftp_conn, file)
+                #set destination dir
+                upload_file(ftp_conn, file)
 
 #Take all the files and upload all
 #ftp_conn = connect_ftp()
