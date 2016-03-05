@@ -102,13 +102,12 @@ def uploadfiles():
     else:
         for file in filelist:
             print "Uploading file: " + str(file)
-                #set destination dir
-                try:
-                    upload_file(ftp_conn, file)
-                except:
-                    print "Error uploading file: "+str(file)
-                else:
-                    print file
+            try:
+                upload_file(ftp_conn, file)
+            except:
+                print "Error uploading file: "+str(file)
+            else:
+                print file
 
 
 #Take all the files and upload all
