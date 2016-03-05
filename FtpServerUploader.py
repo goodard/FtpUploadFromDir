@@ -67,7 +67,7 @@ def getFileList(mydir):
     filelist = [ f for f in os.listdir(mydir) if os.path.isfile(os.path.join(mydir,f))]
     print filelist
 
-getFileList(".")
+getFileList("/home/programi")
 #Take all the files and upload all
 
 #ftp_conn = connect_ftp()
