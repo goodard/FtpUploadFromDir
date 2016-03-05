@@ -78,9 +78,18 @@ def getFilesToUpload():
             filestoupload.extend(getFileList(arg))
     return filestoupload
 
+def uploadfiles():
+    filelist=getFilesToUpload()
+    try:
+        ftp_conn = connect_ftp()
+    except:
+        print "Connection error - unable to open connection to ftp server"
+        exit(1)
+    else:
+        for file in filelist:
+            print "Uploading file: " + str(file)
+            upload_file(ftp_conn, file)
 
-
-print getFilesToUpload()
 #Take all the files and upload all
 #ftp_conn = connect_ftp()
 #for arg in sys.argv:
