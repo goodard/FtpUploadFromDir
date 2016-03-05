@@ -109,7 +109,17 @@ def uploadfiles():
                 print "Error uploading file: "+str(item)
             else:
                 print "Uploaded file: "+str(item)
-
+                PATH=os.path.split(item)
+                NEWDIR=os.path.join(PATH[0],UPLOADED_DIR)
+                NEWPATH=os.path.join(NEWDIR,PATH[1])
+                if os.path.exists(NEWDIR):
+                    print NEWPATH
+                    os.rename(item,NEWPATH)
+                else:
+                    print "Make new dir: "+str(NEWDIR)
+                    os.mkdir(NEWDIR)
+                    print "Move to: "+str(NEWPATH)
+                    os.rename(item,NEWPATH)
 
 #Take all the files and upload all
 #ftp_conn = connect_ftp()
