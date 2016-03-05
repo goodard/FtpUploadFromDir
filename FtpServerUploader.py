@@ -73,7 +73,7 @@ def getFileList(mydir):
 #ftp_conn = connect_ftp()
 if not sys.argv:
     print "Enter source local directory as parameter"
-else
+else:
     for arg in sys.argv:
         getFileList(arg)
 #for arg in sys.argv:
