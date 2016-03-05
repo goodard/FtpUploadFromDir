@@ -62,7 +62,6 @@ def upload_file(ftp_connetion, upload_file_path):
             ftp_connetion.storlines('STOR '+ final_file_name, upload_file)
 
         print('Upload finished.')
-
     except IOError:
         print ("No such file or directory... passing to next file")
 
@@ -108,7 +107,7 @@ def uploadfiles():
             except:
                 print "Error uploading file: "+str(file)
             else:
-                print file
+                print "Uploaded file: "+str(file)
 
 
 #Take all the files and upload all
@@ -117,3 +116,4 @@ def uploadfiles():
 #    upload_file(ftp_conn, arg)
 print UPLOADED_DIR
 print SERVER
+uploadfiles()
