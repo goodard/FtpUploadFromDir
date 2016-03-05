@@ -95,10 +95,11 @@ def uploadfiles():
     filelist=getFilesToUpload()
     try:
         ftp_conn = connect_ftp()
+        print "Connected"
         cdTree(DESTINATION_DIR)
     except:
         print 'Connection error - unable to open connection to ftp server or nonexisting dir'
-        exit(1)
+        sys.exit(1)
     else:
         for item in filelist:
             print "Uploading file: " + str(item)
