@@ -76,7 +76,8 @@ def getFilesToUpload():
         print "Enter source local directory as parameter"
     else:
         filestoupload=[]
-        for arg in sys.argv[1:]:
+        sourcedirs=sys.argv[1:]
+        for arg in sourcedirs:
             print arg
             filestoupload.extend(getFileList(arg))
     return filestoupload
