@@ -156,7 +156,7 @@ def uploadfiles():
                 MESSAGE += "Failed file %s\n" % failed_item
                 SUBJECT = "Failed files"
             sendMail(message=MESSAGE,subject=SUBJECT)
-        sendMail(message="TEST",subject="TEST")
+#        sendMail(message="TEST",subject="TEST")
 
 
 if __name__ == "__main__":
