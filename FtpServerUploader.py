@@ -158,6 +158,7 @@ def uploadfiles():
                 MESSAGE += "Failed file %s\n" % failed_item
                 SUBJECT = "Failed files"
             sendMail(message=MESSAGE,subject=SUBJECT)
+        sendMail(message="TEST",subject="TEST")
 
 
 # Take all the files and upload all
