@@ -19,4 +19,5 @@ MESSAGE = """TEXT FOR EMAIL"""
 SUBJECT = "report of uploading files"
 ```
 2. Start script with directory where files you want to upload are as parameter ie.
+
 ```./FtpServerUploader.py /PATH/TO/MY/DIR```
