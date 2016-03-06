@@ -35,7 +35,7 @@ BINARY_STORE = True  # if False then line store (not valid for binary files (vid
 SENDER = "XXX@XXX"
 RECEIVERS = ["XXXXX@XX.XXX"]
 MESSAGE = """TEXT FOR EMAIL"""
-SUBJECT = "report of uploading PDF to ITM"
+SUBJECT = "report of uploading files"
 ###########################################
 # This will import  parameters defined in file ftpparameters.py  overwriting one ABOVE
 from ftpparameters import *
