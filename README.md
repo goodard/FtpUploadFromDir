@@ -1,6 +1,6 @@
 # FtpUploadFromDir 
 
-Uploads files from dir to FTP
+Uploads files from dir to FTP and moves uploaded files to UPLOADED_DIR
 
 Usage:
 
