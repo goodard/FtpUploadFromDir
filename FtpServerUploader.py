@@ -125,14 +125,20 @@ def uploadfiles():
         cdTree(DESTINATION_DIR, ftp_conn)
     except:
         print 'Connection error - unable to open connection to ftp server or nonexisting dir'
+        MESSAGE = "Error when connecting to ftp. \n Nothing uploaded "
+        SUBJECT = "Erron when connecting %s " %SERVER
+        sendMail(message=MESSAGE,subject=SUBJECT)
+
         sys.exit(1)
     else:
+        failed_files = []
         for item in filelist:
             print "Uploading file: " + str(item)
             try:
                 upload_file(ftp_conn, item)
             except:
                 print "Error uploading file: " + str(item)
+                failed_files.append(item)
             else:
                 print "Uploaded file: " + str(item)
                 PATH = os.path.split(item)
@@ -146,12 +152,16 @@ def uploadfiles():
                     os.mkdir(NEWDIR)
                     print "Move to: " + str(NEWPATH)
                     os.rename(item, NEWPATH)
+        if len(failed_files)>0:
+            MESSAGE=""
+            for failed_item in failed_files:
+                MESSAGE += "Failed file %s\n" % failed_item
+                SUBJECT = "Failed files"
+            sendMail(message=MESSAGE,subject=SUBJECT)
 
 
 # Take all the files and upload all
 # ftp_conn = connect_ftp()
 # for arg in sys.argv:
 #    upload_file(ftp_conn, arg)
-print UPLOADED_DIR
-print SERVER
 uploadfiles()
