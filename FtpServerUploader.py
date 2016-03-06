@@ -6,7 +6,7 @@
 #   opensource: http://www.opensource.org/licenses/BSD-3-Clause
 #   wikipedia: http://en.wikipedia.org/wiki/BSD_licenses
 #
-#-----------------------------------------------------------------------
+# -----------------------------------------------------------------------
 # This script  allows to upload to Fileserve with FTP various files at the same time
 #
 # Use:
@@ -15,51 +15,75 @@
 from ftplib import FTP
 import sys
 import os
+
+# Import smtplib for the actual sending function
+import smtplib
+
+# Import the email modules we'll need
+from email.mime.text import MIMEText
+
 ########### MODIFY ########################
 
 USER = 'xxxxxx'
 PASS = 'xxxxxxxxx'
-DESTINATION_DIR="documents"
+DESTINATION_DIR = "documents"
 ########### MODIFY IF YOU WANT ############
-UPLOADED_DIR='uploaded'
+UPLOADED_DIR = 'uploaded'
 SERVER = 'ftp.fileserve.com'
 PORT = 21
-BINARY_STORE = True # if False then line store (not valid for binary files (videos, music, photos...))
-
+BINARY_STORE = True  # if False then line store (not valid for binary files (videos, music, photos...))
+SENDER = "XXX@XXX"
+RECEIVERS = ["XXXXX@XX.XXX"]
+MESSAGE = """TEXT FOR EMAIL"""
+SUBJECT = "report of uploading PDF to ITM"
 ###########################################
+# This will import  parameters defined in file ftpparameters.py  overwriting one ABOVE
 from ftpparameters import *
 
+
+def sendMail(sender=SENDER, receivers=RECEIVERS, message=MESSAGE, subject=SUBJECT):
+    msg = MIMEText(message)
+    msg['Subject'] = subject
+    msg['From'] = sender
+    msg['To'] = ",".join(receivers)
+    try:
+        smtpObj = smtplib.SMTP('localhost')
+        smtpObj.sendmail(sender, receivers, msg.as_string())
+        print 'Successfully sent email'
+    except smtplib.SMTPException:
+        print 'Error: unable to send email'
 
 
 def print_line(result):
     print(result)
 
+
 def connect_ftp():
-    #Connect to the server
+    # Connect to the server
     ftp = FTP()
     ftp.connect(SERVER, PORT)
     ftp.login(USER, PASS)
 
     return ftp
 
-def upload_file(ftp_connetion, upload_file_path):
 
-    #Open the file
+def upload_file(ftp_connetion, upload_file_path):
+    # Open the file
     try:
         upload_file = open(upload_file_path, 'r')
 
-        #get the name
+        # get the name
         path_split = upload_file_path.split('/')
-        final_file_name = path_split[len(path_split)-1]
+        final_file_name = path_split[len(path_split) - 1]
 
-        #transfer the file
+        # transfer the file
         print('Uploading ' + final_file_name + '...')
 
         if BINARY_STORE:
-            ftp_connetion.storbinary('STOR '+ final_file_name, upload_file)
+            ftp_connetion.storbinary('STOR ' + final_file_name, upload_file)
         else:
-            #ftp_connetion.storlines('STOR ' + final_file_name, upload_file, print_line)
-            ftp_connetion.storlines('STOR '+ final_file_name, upload_file)
+            # ftp_connetion.storlines('STOR ' + final_file_name, upload_file, print_line)
+            ftp_connetion.storlines('STOR ' + final_file_name, upload_file)
 
         print('Upload finished.')
     except IOError:
@@ -67,21 +91,23 @@ def upload_file(ftp_connetion, upload_file_path):
 
 
 def getFileList(mydir):
-    filelist = [ os.path.join(mydir,f) for f in os.listdir(mydir) if os.path.isfile(os.path.join(mydir,f))]
+    filelist = [os.path.join(mydir, f) for f in os.listdir(mydir) if os.path.isfile(os.path.join(mydir, f))]
     return filelist
+
 
 def getFilesToUpload():
     if len(sys.argv) < 2:
         print "Enter source local directory as parameter"
     else:
-        filestoupload=[]
-        sourcedirs=sys.argv[1:]
+        filestoupload = []
+        sourcedirs = sys.argv[1:]
         for arg in sourcedirs:
             print arg
             filestoupload.extend(getFileList(arg))
     return filestoupload
 
-def cdTree(currentDir,ftp):
+
+def cdTree(currentDir, ftp):
     if currentDir != "":
         try:
             ftp.cwd(currentDir)
@@ -92,11 +118,11 @@ def cdTree(currentDir,ftp):
 
 
 def uploadfiles():
-    filelist=getFilesToUpload()
+    filelist = getFilesToUpload()
     try:
         ftp_conn = connect_ftp()
         print "Connected"
-        cdTree(DESTINATION_DIR,ftp_conn)
+        cdTree(DESTINATION_DIR, ftp_conn)
     except:
         print 'Connection error - unable to open connection to ftp server or nonexisting dir'
         sys.exit(1)
@@ -106,24 +132,25 @@ def uploadfiles():
             try:
                 upload_file(ftp_conn, item)
             except:
-                print "Error uploading file: "+str(item)
+                print "Error uploading file: " + str(item)
             else:
-                print "Uploaded file: "+str(item)
-                PATH=os.path.split(item)
-                NEWDIR=os.path.join(PATH[0],UPLOADED_DIR)
-                NEWPATH=os.path.join(NEWDIR,PATH[1])
+                print "Uploaded file: " + str(item)
+                PATH = os.path.split(item)
+                NEWDIR = os.path.join(PATH[0], UPLOADED_DIR)
+                NEWPATH = os.path.join(NEWDIR, PATH[1])
                 if os.path.exists(NEWDIR):
                     print NEWPATH
-                    os.rename(item,NEWPATH)
+                    os.rename(item, NEWPATH)
                 else:
-                    print "Make new dir: "+str(NEWDIR)
+                    print "Make new dir: " + str(NEWDIR)
                     os.mkdir(NEWDIR)
-                    print "Move to: "+str(NEWPATH)
-                    os.rename(item,NEWPATH)
+                    print "Move to: " + str(NEWPATH)
+                    os.rename(item, NEWPATH)
 
-#Take all the files and upload all
-#ftp_conn = connect_ftp()
-#for arg in sys.argv:
+
+# Take all the files and upload all
+# ftp_conn = connect_ftp()
+# for arg in sys.argv:
 #    upload_file(ftp_conn, arg)
 print UPLOADED_DIR
 print SERVER
