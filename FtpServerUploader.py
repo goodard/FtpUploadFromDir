@@ -1,16 +1,14 @@
 #!/usr/bin/python
-# Copyright (c) 2011, Xabier (slok) Larrakoetxea
-# Copyright (c) 2011, Iraide (Sharem) Diaz
+# Copyright (c) 2016, Marko Stojanovic
 #
-# 3 clause/New BSD license:
-#   opensource: http://www.opensource.org/licenses/BSD-3-Clause
-#   wikipedia: http://en.wikipedia.org/wiki/BSD_licenses
+# This is modification of Xabier (slok) Larrakoetxea and Iraide (Sharem) Diaz project
+# https://gist.github.com/slok/1447559
 #
 # -----------------------------------------------------------------------
-# This script  allows to upload to Fileserve with FTP various files at the same time
+# This script  allows to upload files from multiple dirs to FTP server
 #
 # Use:
-#   python ./ftpFilserveUploader.py ./Downloads/xxx.y ./yyyy.z  /home/xxx/yyyy.zz
+#   python ./ftpFilserveUploader.py SOURCE_DIR
 #
 from ftplib import FTP
 import sys
@@ -161,8 +159,5 @@ def uploadfiles():
         sendMail(message="TEST",subject="TEST")
 
 
-# Take all the files and upload all
-# ftp_conn = connect_ftp()
-# for arg in sys.argv:
-#    upload_file(ftp_conn, arg)
-uploadfiles()
+if __name__ == "__main__":
+    uploadfiles()
