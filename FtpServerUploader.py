@@ -20,7 +20,7 @@ import os
 import smtplib
 
 # Import the email modules we'll need
-from email.mime.text import MIMEText
+from email.MIMEText import MIMEText
 
 ########### MODIFY ########################
 
